@@ -4,7 +4,6 @@ import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import LightTransition from "@/components/LightTransition";
 import ProductGallery from "@/components/ProductGallery";
 
 const details = [
@@ -25,6 +24,27 @@ const details = [
   },
 ];
 
+const useCases = [
+  {
+    title: "Exterior",
+    description: "Revestimiento alistonado en un patio contemporáneo.",
+    image: "/images/usecases/euca-2.png",
+    alt: "Patio exterior con revestimiento alistonado e iluminación",
+  },
+  {
+    title: "Dormitorio",
+    description: "Una propuesta cálida para sumar textura al ambiente.",
+    image: "/images/usecases/dorm.png",
+    alt: "Dormitorio con revestimiento alistonado e iluminación cálida",
+  },
+  {
+    title: "Living",
+    description: "Una pared protagonista en un ambiente integrado.",
+    image: "/images/usecases/living.png",
+    alt: "Living amplio con pared revestida en listones de madera",
+  },
+];
+
 export default function Home() {
   return (
     <>
@@ -32,21 +52,6 @@ export default function Home() {
       <main>
         <Hero />
         <ProductGallery />
-
-        <section id="luz" className="slat-pattern-bg scroll-mt-24 bg-[#f3f0eb] px-5 py-14 sm:px-8 sm:py-16 lg:py-20">
-          <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-12">
-            <div className="max-w-md">
-              <p className="eyebrow">Un toque cambia todo</p>
-              <h2 className="section-title mt-4">
-                La misma pared.<br />Otra atmósfera.
-              </h2>
-              <p className="section-copy mt-4">
-                Compará el ambiente con la iluminación apagada y encendida.
-              </p>
-            </div>
-            <LightTransition />
-          </div>
-        </section>
 
         <section id="producto" className="scroll-mt-24 bg-[#211d1a] px-5 py-20 text-white sm:px-8 sm:py-28">
           <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
@@ -105,15 +110,21 @@ export default function Home() {
             </p>
           </div>
           <div className="mx-auto mt-8 grid max-w-7xl gap-4 sm:grid-cols-3">
-            {[
-              { title: "Living", text: "Un punto focal para compartir y disfrutar." },
-              { title: "Dormitorio", text: "Textura y calidez para bajar el ritmo." },
-              { title: "Espacio de trabajo", text: "Un fondo con identidad y presencia." },
-            ].map((place, index) => (
-              <article key={place.title} className="group rounded-2xl bg-[#f5f3ef] p-6 transition-colors hover:bg-[#eee9e2] sm:p-8">
-                <span className="text-xs font-semibold tracking-[0.16em] text-[#c71e2c]">0{index + 1}</span>
-                <h3 className="mt-8 text-xl font-semibold tracking-tight text-stone-900">{place.title}</h3>
-                <p className="mt-2 max-w-xs text-sm leading-6 text-stone-600">{place.text}</p>
+            {useCases.map((useCase) => (
+              <article key={useCase.title} className="group overflow-hidden rounded-2xl bg-[#f5f3ef]">
+                <div className="relative aspect-[1.4] overflow-hidden">
+                  <Image
+                    src={useCase.image}
+                    alt={useCase.alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
+                  />
+                </div>
+                <div className="p-5 sm:p-6">
+                  <h3 className="text-xl font-semibold tracking-tight text-stone-900">{useCase.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-stone-600">{useCase.description}</p>
+                </div>
               </article>
             ))}
           </div>

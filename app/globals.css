@@ -87,6 +87,14 @@ body {
   color: #a91622;
 }
 
+.product-carousel-track {
+  scrollbar-width: none;
+}
+
+.product-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
 .slat-pattern-bg {
   position: relative;
   isolation: isolate;

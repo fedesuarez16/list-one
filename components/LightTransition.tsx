@@ -27,24 +27,16 @@ export default function LightTransition() {
           src="/images/listone-apagado.png"
           alt={isOn ? "" : "Revestimiento alistonado con la iluminación apagada"}
           fill
-          sizes="(max-width: 768px) 100vw, 90vw"
+          sizes="(max-width: 1024px) 100vw, 62vw"
           className={`object-cover transition-opacity duration-1000 motion-reduce:transition-none ${isOn ? "opacity-0" : "opacity-100"}`}
         />
         <Image
           src="/images/listone-prendido.png"
           alt={isOn ? "Revestimiento alistonado con la iluminación encendida" : ""}
           fill
-          sizes="(max-width: 768px) 100vw, 90vw"
+          sizes="(max-width: 1024px) 100vw, 62vw"
           className={`object-cover transition-opacity duration-1000 motion-reduce:transition-none ${isOn ? "opacity-100" : "opacity-0"}`}
         />
-        <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-4 p-4 sm:p-7">
-          <span className="rounded-full border border-white/40 bg-black/25 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-md">
-            Vista del revestimiento
-          </span>
-          <span className="rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-stone-800 shadow-sm">
-            Luz {isOn ? "encendida" : "apagada"}
-          </span>
-        </div>
       </div>
 
       <div className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">

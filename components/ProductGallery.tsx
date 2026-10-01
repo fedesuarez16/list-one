@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const products = [
   { name: "Eucalipto", detail: "Ranura fina", image: "eucalipto-ranura-fina.png", tag: "Ranura fina" },
@@ -18,7 +21,91 @@ const products = [
   { name: "Pino", detail: "Impregnado CCA", image: "pino-impregnado-cca.png", tag: "CCA" },
 ];
 
+function closestProductIndex(track: HTMLDivElement, targetLeft: number) {
+  const trackLeft = track.getBoundingClientRect().left;
+  let closestIndex = 0;
+  let closestDistance = Number.POSITIVE_INFINITY;
+
+  Array.from(track.children).forEach((product, index) => {
+    if (!(product instanceof HTMLElement)) return;
+
+    const left = product.getBoundingClientRect().left - trackLeft + track.scrollLeft;
+    const distance = Math.abs(left - targetLeft);
+    if (distance < closestDistance) {
+      closestIndex = index;
+      closestDistance = distance;
+    }
+  });
+
+  return closestIndex;
+}
+
 export default function ProductGallery() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const currentIndexRef = useRef(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const scrollToProduct = useCallback((requestedIndex: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+    let nextIndex: number;
+    let left: number;
+
+    if (requestedIndex < 0) {
+      left = maxScroll;
+      nextIndex = closestProductIndex(track, left);
+    } else {
+      const candidateIndex = requestedIndex % products.length;
+      const product = track.children.item(candidateIndex);
+      if (!(product instanceof HTMLElement)) return;
+
+      const candidateLeft = product.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft;
+      if (candidateLeft > maxScroll + 1 && requestedIndex > currentIndexRef.current) {
+        nextIndex = 0;
+        left = 0;
+      } else if (candidateLeft > maxScroll + 1) {
+        left = maxScroll;
+        nextIndex = closestProductIndex(track, left);
+      } else {
+        nextIndex = candidateIndex;
+        left = candidateLeft;
+      }
+    }
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    track.scrollTo({ left, behavior: reducedMotion ? "auto" : "smooth" });
+    currentIndexRef.current = nextIndex;
+    setCurrentIndex(nextIndex);
+  }, []);
+
+  const syncCurrentProduct = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const closestIndex = closestProductIndex(track, track.scrollLeft);
+    currentIndexRef.current = closestIndex;
+    setCurrentIndex((current) => current === closestIndex ? current : closestIndex);
+  }, []);
+
+  useEffect(() => {
+    if (!isPlaying || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const interval = window.setInterval(() => {
+      scrollToProduct(currentIndexRef.current + 1);
+    }, 3600);
+
+    return () => window.clearInterval(interval);
+  }, [isPlaying, scrollToProduct]);
+
+  function handleManualMove(index: number) {
+    setIsPlaying(false);
+    scrollToProduct(index);
+  }
+
   return (
     <section id="productos" className="slat-pattern-bg scroll-mt-24 bg-white px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-7xl">
@@ -28,13 +115,20 @@ export default function ProductGallery() {
             <h2 className="section-title mt-4">Maderas, perfiles y luz.</h2>
           </div>
           <p className="section-copy max-w-lg sm:pb-1">
-            Explorá las distintas vetas y terminaciones. Algunas opciones suman iluminación para darle otra dimensión a la pared.
+            Deslizá por las distintas vetas y terminaciones. Algunas opciones suman iluminación para darle otra dimensión a la pared.
           </p>
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-6">
+        <div
+          ref={trackRef}
+          onScroll={syncCurrentProduct}
+          className="product-carousel-track mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-3 sm:gap-5 lg:gap-6"
+          role="region"
+          aria-label="Colección de revestimientos Listone"
+          aria-roledescription="carrusel"
+        >
           {products.map((product) => (
-            <article key={product.image} className="group min-w-0">
+            <article key={product.image} className="group min-w-0 shrink-0 basis-[82%] snap-start sm:basis-[46%] lg:basis-[calc(25%_-_18px)]">
               <div className="relative aspect-[0.88] overflow-hidden rounded-2xl bg-[#f2eee8]">
                 <Image
                   src={`/images/catalog/${product.image}`}
@@ -53,6 +147,39 @@ export default function ProductGallery() {
               </div>
             </article>
           ))}
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
+          <p className="text-sm tabular-nums text-stone-500" aria-label={`Producto ${currentIndex + 1} de ${products.length}`}>
+            {String(currentIndex + 1).padStart(2, "0")} <span className="px-1 text-stone-300">/</span> {String(products.length).padStart(2, "0")}
+          </p>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => handleManualMove(currentIndex - 1)}
+              aria-label="Producto anterior"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 text-lg text-stone-700 transition hover:border-[#c71e2c] hover:text-[#c71e2c]"
+            >
+              <span aria-hidden="true">←</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsPlaying((playing) => !playing)}
+              aria-label={isPlaying ? "Pausar carrusel" : "Reanudar carrusel"}
+              aria-pressed={!isPlaying}
+              className="h-11 rounded-full border border-stone-300 px-4 text-xs font-semibold text-stone-700 transition hover:border-[#c71e2c] hover:text-[#c71e2c]"
+            >
+              {isPlaying ? "Pausar" : "Reanudar"}
+            </button>
+            <button
+              type="button"
+              onClick={() => handleManualMove(currentIndex + 1)}
+              aria-label="Producto siguiente"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 text-lg text-stone-700 transition hover:border-[#c71e2c] hover:text-[#c71e2c]"
+            >
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>

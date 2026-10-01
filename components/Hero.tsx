@@ -1,4 +1,4 @@
-import Image from "next/image";
+import LightTransition from "@/components/LightTransition";
 
 export default function Hero() {
   return (
@@ -29,19 +29,8 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative aspect-[0.86] overflow-hidden rounded-[1.6rem] sm:aspect-[1.05] lg:aspect-auto lg:h-[min(720px,calc(100svh-128px))] lg:min-h-[600px]">
-          <Image
-            src="/images/listone-living.jpg"
-            alt="Living cálido con pared revestida en listones de madera e iluminación integrada"
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 64vw"
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/5" />
-          <span className="absolute bottom-5 left-5 rounded-full border border-white/35 bg-black/20 px-4 py-2.5 text-xs font-medium tracking-wide text-white backdrop-blur-md sm:bottom-7 sm:left-7 sm:text-sm">
-            Listone · textura y luz
-          </span>
+        <div id="luz" className="scroll-mt-28">
+          <LightTransition />
         </div>
       </div>
     </section>
