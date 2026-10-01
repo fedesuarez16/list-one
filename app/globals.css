@@ -1,26 +1,120 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  background: #fcfbf9;
+  color: #211d1a;
+  font-family: Arial, Helvetica, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  background: #fcfbf9;
+}
+
+::selection {
+  background: #c71e2c;
+  color: white;
+}
+
+:focus-visible {
+  outline: 3px solid #c71e2c;
+  outline-offset: 3px;
+}
+
+.eyebrow {
+  color: #c71e2c;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.section-title {
+  color: #211d1a;
+  font-size: clamp(2rem, 4.3vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.06;
+}
+
+.section-copy {
+  color: #68625c;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.button-primary,
+.button-secondary {
+  min-height: 3.15rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  border-radius: 9999px;
+  padding: 0.85rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.button-primary {
+  background: #c71e2c;
+  color: #fff;
+}
+
+.button-primary:hover {
+  transform: translateY(-1px);
+  background: #a91622;
+}
+
+.button-secondary {
+  border: 1px solid #ded9d2;
+  color: #302b27;
+}
+
+.button-secondary:hover {
+  border-color: #c71e2c;
+  color: #a91622;
+}
+
+.slat-pattern-bg {
+  position: relative;
+  isolation: isolate;
+}
+
+.slat-pattern-bg::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 47px,
+    rgba(76, 58, 43, 0.025) 47px 48px,
+    rgba(255, 255, 255, 0.13) 48px 50px,
+    transparent 50px 96px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,69 +1,128 @@
 import Image from "next/image";
+import ContactSection from "@/components/ContactSection";
+import Faq from "@/components/Faq";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import LightTransition from "@/components/LightTransition";
+import ProductGallery from "@/components/ProductGallery";
+
+const details = [
+  {
+    number: "01",
+    title: "Textura",
+    description: "El relieve de los listones suma profundidad y sombras suaves a la pared.",
+  },
+  {
+    number: "02",
+    title: "Ritmo",
+    description: "La repetición vertical aporta orden visual y acompaña la arquitectura.",
+  },
+  {
+    number: "03",
+    title: "Calidez",
+    description: "La madera transforma la sensación del ambiente con un gesto simple.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <ProductGallery />
+
+        <section id="luz" className="slat-pattern-bg scroll-mt-24 bg-[#f3f0eb] px-5 py-14 sm:px-8 sm:py-16 lg:py-20">
+          <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-12">
+            <div className="max-w-md">
+              <p className="eyebrow">Un toque cambia todo</p>
+              <h2 className="section-title mt-4">
+                La misma pared.<br />Otra atmósfera.
+              </h2>
+              <p className="section-copy mt-4">
+                Compará el ambiente con la iluminación apagada y encendida.
+              </p>
+            </div>
+            <LightTransition />
+          </div>
+        </section>
+
+        <section id="producto" className="scroll-mt-24 bg-[#211d1a] px-5 py-20 text-white sm:px-8 sm:py-28">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+            <div className="relative order-2 aspect-[4/5] overflow-hidden rounded-[1.5rem] lg:order-1">
+              <Image
+                src="/images/product_tradicional_detail.jpg"
+                alt="Detalle del ritmo y la textura vertical del revestimiento alistonado"
+                fill
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+              <span className="absolute bottom-5 left-5 rounded-full border border-white/25 bg-black/25 px-4 py-2 text-xs font-medium tracking-wide text-white backdrop-blur-sm">
+                El detalle hace la diferencia
+              </span>
+            </div>
+
+            <div className="order-1 lg:order-2">
+              <p className="eyebrow text-[#ff665e]">Diseño que se siente</p>
+              <h2 className="section-title mt-4 text-white">
+                Una pared con carácter, sin recargar el ambiente.
+              </h2>
+              <p className="mt-5 max-w-xl text-base leading-7 text-white/65 sm:text-lg sm:leading-8">
+                Las líneas alistonadas crean un juego sutil de luces y sombras. Un recurso cálido y contemporáneo para darle protagonismo a una pared.
+              </p>
+
+              <div className="mt-10 divide-y divide-white/15 border-y border-white/15">
+                {details.map((detail) => (
+                  <article key={detail.number} className="grid grid-cols-[3rem_1fr] gap-3 py-5 sm:grid-cols-[4rem_1fr]">
+                    <span className="pt-1 text-xs font-semibold tracking-[0.16em] text-[#ff665e]">{detail.number}</span>
+                    <div>
+                      <h3 className="text-lg font-semibold">{detail.title}</h3>
+                      <p className="mt-1.5 max-w-lg text-sm leading-6 text-white/60">{detail.description}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              <a href="#contacto" className="button-primary mt-9 inline-flex">
+                Consultar por el revestimiento <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white px-5 py-20 sm:px-8 sm:py-24">
+          <div className="mx-auto flex max-w-7xl flex-col gap-8 border-b border-stone-200 pb-10 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="eyebrow">De la idea al espacio</p>
+              <h2 className="section-title mt-4 max-w-2xl">
+                ¿Dónde te gustaría verlo?
+              </h2>
+            </div>
+            <p className="section-copy max-w-md sm:pb-1">
+              Una pared de estar, un dormitorio o ese rincón que pide un poco más de calidez. Contanos qué tenés en mente.
+            </p>
+          </div>
+          <div className="mx-auto mt-8 grid max-w-7xl gap-4 sm:grid-cols-3">
+            {[
+              { title: "Living", text: "Un punto focal para compartir y disfrutar." },
+              { title: "Dormitorio", text: "Textura y calidez para bajar el ritmo." },
+              { title: "Espacio de trabajo", text: "Un fondo con identidad y presencia." },
+            ].map((place, index) => (
+              <article key={place.title} className="group rounded-2xl bg-[#f5f3ef] p-6 transition-colors hover:bg-[#eee9e2] sm:p-8">
+                <span className="text-xs font-semibold tracking-[0.16em] text-[#c71e2c]">0{index + 1}</span>
+                <h3 className="mt-8 text-xl font-semibold tracking-tight text-stone-900">{place.title}</h3>
+                <p className="mt-2 max-w-xs text-sm leading-6 text-stone-600">{place.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <ContactSection />
+        <Faq />
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
