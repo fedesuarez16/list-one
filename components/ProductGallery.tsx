@@ -112,10 +112,10 @@ export default function ProductGallery() {
         <div className="flex flex-col gap-5 border-b border-stone-200 pb-8 sm:flex-row sm:items-end sm:justify-between sm:pb-10">
           <div>
             <p className="eyebrow">La colección Listone</p>
-            <h2 className="section-title mt-4">Maderas, perfiles y luz.</h2>
+            <h2 className="section-title mt-4">Revestimiento alistonado en seis maderas.</h2>
           </div>
           <p className="section-copy max-w-lg sm:pb-1">
-            Deslizá por las distintas vetas y terminaciones. Algunas opciones suman iluminación para darle otra dimensión a la pared.
+            Eucalipto, pino, guatambú, freijó, guayubira y paraíso. Deslizá por las vetas y terminaciones: algunas opciones suman iluminación LED para darle otra dimensión a la pared.
           </p>
         </div>
 

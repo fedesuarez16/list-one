@@ -7,13 +7,13 @@ export default function Hero() {
         <div className="py-5 sm:py-8 lg:py-12">
           <p className="eyebrow flex items-center gap-3">
             <span className="h-px w-8 bg-[#c71e2c]" />
-            Revestimientos alistonados
+            Listones de madera para pared
           </p>
           <h1 className="mt-6 max-w-xl text-[2.8rem] font-semibold leading-[1.02] tracking-[-0.055em] text-[#211d1a] sm:text-6xl lg:text-[4.25rem]">
-            Madera que transforma tus espacios.
+            Revestimiento alistonado de madera que transforma tus espacios.
           </h1>
           <p className="mt-6 max-w-lg text-base leading-7 text-stone-600 sm:text-lg sm:leading-8">
-            Descubrí la colección Listone: distintas maderas, perfiles y opciones con iluminación para darle protagonismo a tus paredes.
+            Descubrí la colección Listone: revestimientos alistonados en eucalipto, pino, guatambú y más maderas nobles, para interior y exterior, con opción de iluminación LED.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a href="#productos" className="button-primary">
