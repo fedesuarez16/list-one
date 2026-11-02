@@ -4,21 +4,21 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const products = [
-  { name: "Eucalipto", detail: "Ranura fina", image: "eucalipto-ranura-fina.png", tag: "Ranura fina" },
-  { name: "Eucalipto", detail: "Versión iluminada", image: "eucalipto-led.png", tag: "Con LED" },
-  { name: "Freijó", detail: "Veta natural", image: "freijo.png", tag: "Madera" },
-  { name: "Freijó", detail: "Veta alternativa", image: "freijo-veta-alternativa.png", tag: "Madera" },
-  { name: "Guatambú", detail: "Madera natural", image: "guatambu.png", tag: "Madera" },
-  { name: "Guatambú", detail: "Iluminación", image: "guatambu-iluminado.png", tag: "Iluminado" },
-  { name: "Guatambú", detail: "Iluminación con cobertor", image: "guatambu-cobertor-led.png", tag: "Con LED" },
-  { name: "Guayubira", detail: "Iluminación LED", image: "guayubira-led.png", tag: "Con LED" },
-  { name: "Guayubira", detail: "Versión iluminada", image: "guayubira-iluminada.png", tag: "Iluminado" },
-  { name: "Paraíso", detail: "Con LED", image: "paraiso-led.png", tag: "Con LED" },
-  { name: "Paraíso", detail: "Iluminación LED", image: "paraiso-iluminacion-led.png", tag: "Con LED" },
-  { name: "Pino", detail: "Base negra", image: "pino-base-negra.png", tag: "Base negra" },
-  { name: "Pino", detail: "Base negra iluminada", image: "pino-base-negra-led.png", tag: "Con LED" },
-  { name: "Pino", detail: "Finger", image: "pino-finger.png", tag: "Finger" },
-  { name: "Pino", detail: "Impregnado CCA", image: "pino-impregnado-cca.png", tag: "CCA" },
+  { name: "Eucalipto", detail: "Ranura fina", image: "eucalipto-ranura-fina.webp", tag: "Ranura fina" },
+  { name: "Eucalipto", detail: "Versión iluminada", image: "eucalipto-led.webp", tag: "Con LED" },
+  { name: "Freijó", detail: "Veta natural", image: "freijo.webp", tag: "Madera" },
+  { name: "Freijó", detail: "Veta alternativa", image: "freijo-veta-alternativa.webp", tag: "Madera" },
+  { name: "Guatambú", detail: "Madera natural", image: "guatambu.webp", tag: "Madera" },
+  { name: "Guatambú", detail: "Iluminación", image: "guatambu-iluminado.webp", tag: "Iluminado" },
+  { name: "Guatambú", detail: "Iluminación con cobertor", image: "guatambu-cobertor-led.webp", tag: "Con LED" },
+  { name: "Guayubira", detail: "Iluminación LED", image: "guayubira-led.webp", tag: "Con LED" },
+  { name: "Guayubira", detail: "Versión iluminada", image: "guayubira-iluminada.webp", tag: "Iluminado" },
+  { name: "Paraíso", detail: "Con LED", image: "paraiso-led.webp", tag: "Con LED" },
+  { name: "Paraíso", detail: "Iluminación LED", image: "paraiso-iluminacion-led.webp", tag: "Con LED" },
+  { name: "Pino", detail: "Base negra", image: "pino-base-negra.webp", tag: "Base negra" },
+  { name: "Pino", detail: "Base negra iluminada", image: "pino-base-negra-led.webp", tag: "Con LED" },
+  { name: "Pino", detail: "Finger", image: "pino-finger.webp", tag: "Finger" },
+  { name: "Pino", detail: "Impregnado CCA", image: "pino-impregnado-cca.webp", tag: "CCA" },
 ];
 
 function closestProductIndex(track: HTMLDivElement, targetLeft: number) {

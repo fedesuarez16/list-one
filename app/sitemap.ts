@@ -10,9 +10,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 1,
       images: [
-        `${siteUrl}/images/listone-prendido.png`,
+        `${siteUrl}/images/listone-prendido.webp`,
         `${siteUrl}/images/product_tradicional_detail.jpg`,
-        `${siteUrl}/images/usecases/living.png`,
+        `${siteUrl}/images/usecases/living.webp`,
       ],
     },
     ...usos.map((uso) => ({

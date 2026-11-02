@@ -74,9 +74,9 @@ const jsonLd = {
       material: ["Eucalipto", "Pino", "Guatambú", "Freijó", "Guayubira", "Paraíso"],
       brand: { "@id": `${siteUrl}/#organization` },
       image: [
-        `${siteUrl}/images/listone-prendido.png`,
+        `${siteUrl}/images/listone-prendido.webp`,
         `${siteUrl}/images/product_tradicional_detail.jpg`,
-        `${siteUrl}/images/usecases/living.png`,
+        `${siteUrl}/images/usecases/living.webp`,
       ],
     },
     {
@@ -95,19 +95,19 @@ const useCases = [
   {
     title: "Exterior",
     description: "Revestimiento alistonado en un patio contemporáneo.",
-    image: "/images/usecases/euca-2.png",
+    image: "/images/usecases/euca-2.webp",
     alt: "Patio exterior con revestimiento alistonado e iluminación",
   },
   {
     title: "Dormitorio",
     description: "Una propuesta cálida para sumar textura al ambiente.",
-    image: "/images/usecases/dorm.png",
+    image: "/images/usecases/dorm.webp",
     alt: "Dormitorio con revestimiento alistonado e iluminación cálida",
   },
   {
     title: "Living",
     description: "Una pared protagonista en un ambiente integrado.",
-    image: "/images/usecases/living.png",
+    image: "/images/usecases/living.webp",
     alt: "Living amplio con pared revestida en listones de madera",
   },
 ];

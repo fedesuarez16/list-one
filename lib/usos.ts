@@ -18,7 +18,7 @@ export const usos: Uso[] = [
       "Revestimiento alistonado de madera para interior: paredes de living, respaldos de cama, recepciones y oficinas. Listones de eucalipto, guatambú, freijó, guayubira y paraíso.",
     intro:
       "Los listones de madera en vertical convierten una pared lisa en el punto focal del ambiente. Suman calidez, estilizan la altura y generan un juego de sombras que cambia a lo largo del día.",
-    image: "/images/usecases/living.png",
+    image: "/images/usecases/living.webp",
     imageAlt: "Living con pared de revestimiento alistonado de madera",
     points: [
       {
@@ -43,7 +43,7 @@ export const usos: Uso[] = [
       "Revestimiento alistonado de madera para exterior: patios, galerías, cercos y fachadas. Opciones como pino impregnado CCA preparadas para la intemperie.",
     intro:
       "Afuera, los listones de madera suavizan muros y medianeras y acompañan la vegetación. Elegir una madera preparada para la intemperie es lo que hace que el revestimiento dure.",
-    image: "/images/usecases/euca-2.png",
+    image: "/images/usecases/euca-2.webp",
     imageAlt: "Patio exterior con revestimiento alistonado de madera e iluminación",
     points: [
       {
@@ -68,7 +68,7 @@ export const usos: Uso[] = [
       "Revestimiento alistonado de madera con iluminación LED entre los listones. Disponible en eucalipto, guatambú, guayubira, paraíso y pino base negra.",
     intro:
       "La luz entre los listones resalta la veta de la madera y convierte la pared en la iluminación del ambiente. De día es un revestimiento de madera; de noche, una pared que brilla.",
-    image: "/images/listone-prendido.png",
+    image: "/images/listone-prendido.webp",
     imageAlt: "Revestimiento alistonado con iluminación LED encendida",
     points: [
       {

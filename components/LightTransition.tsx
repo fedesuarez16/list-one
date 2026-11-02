@@ -24,14 +24,15 @@ export default function LightTransition() {
     <div className="overflow-hidden rounded-[1.4rem] bg-white shadow-[0_20px_60px_-36px_rgba(42,31,23,0.28)]">
       <div className="relative aspect-[1.4] overflow-hidden bg-stone-200 sm:aspect-[1.7]">
         <Image
-          src="/images/listone-apagado.png"
+          src="/images/listone-apagado.webp"
+          fetchPriority="high"
           alt={isOn ? "" : "Revestimiento alistonado con la iluminación apagada"}
           fill
           sizes="(max-width: 1024px) 100vw, 62vw"
           className={`object-cover transition-opacity duration-1000 motion-reduce:transition-none ${isOn ? "opacity-0" : "opacity-100"}`}
         />
         <Image
-          src="/images/listone-prendido.png"
+          src="/images/listone-prendido.webp"
           alt={isOn ? "Revestimiento alistonado con la iluminación encendida" : ""}
           fill
           sizes="(max-width: 1024px) 100vw, 62vw"
