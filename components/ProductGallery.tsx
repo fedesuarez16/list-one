@@ -3,109 +3,165 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const products = [
-  { name: "Eucalipto", detail: "Ranura fina", image: "eucalipto-ranura-fina.webp", tag: "Ranura fina" },
-  { name: "Eucalipto", detail: "Versión iluminada", image: "eucalipto-led.webp", tag: "Con LED" },
-  { name: "Freijó", detail: "Veta natural", image: "freijo.webp", tag: "Madera" },
-  { name: "Freijó", detail: "Veta alternativa", image: "freijo-veta-alternativa.webp", tag: "Madera" },
-  { name: "Guatambú", detail: "Madera natural", image: "guatambu.webp", tag: "Madera" },
-  { name: "Guatambú", detail: "Iluminación", image: "guatambu-iluminado.webp", tag: "Iluminado" },
-  { name: "Guatambú", detail: "Iluminación con cobertor", image: "guatambu-cobertor-led.webp", tag: "Con LED" },
-  { name: "Guayubira", detail: "Iluminación LED", image: "guayubira-led.webp", tag: "Con LED" },
-  { name: "Guayubira", detail: "Versión iluminada", image: "guayubira-iluminada.webp", tag: "Iluminado" },
-  { name: "Paraíso", detail: "Con LED", image: "paraiso-led.webp", tag: "Con LED" },
-  { name: "Paraíso", detail: "Iluminación LED", image: "paraiso-iluminacion-led.webp", tag: "Con LED" },
-  { name: "Pino", detail: "Base negra", image: "pino-base-negra.webp", tag: "Base negra" },
-  { name: "Pino", detail: "Base negra iluminada", image: "pino-base-negra-led.webp", tag: "Con LED" },
-  { name: "Pino", detail: "Finger", image: "pino-finger.webp", tag: "Finger" },
-  { name: "Pino", detail: "Impregnado CCA", image: "pino-impregnado-cca.webp", tag: "CCA" },
+type Category = "enchapados" | "macizas" | "particulados";
+
+type Variant = "solo" | "led";
+
+type Product = {
+  name: string;
+  detail: string;
+  tag: string;
+  category: Category;
+  // Foto por variante. Si falta una, esa opción del selector queda deshabilitada.
+  images: Partial<Record<Variant, string>>;
+};
+
+const variants: { id: Variant; label: string }[] = [
+  { id: "solo", label: "Solo" },
+  { id: "led", label: "Con LED" },
 ];
 
-function closestProductIndex(track: HTMLDivElement, targetLeft: number) {
-  const trackLeft = track.getBoundingClientRect().left;
-  let closestIndex = 0;
-  let closestDistance = Number.POSITIVE_INFINITY;
+// Orden de render de los carruseles.
+const categories: { id: Category; title: string }[] = [
+  { id: "enchapados", title: "Enchapados Naturales" },
+  { id: "macizas", title: "Maderas Macizas" },
+  { id: "particulados", title: "Particulados" },
+];
 
-  Array.from(track.children).forEach((product, index) => {
-    if (!(product instanceof HTMLElement)) return;
+// Asignación de categorías provisoria: ajustar `category` por producto.
+// Regla: lo que antes era "Especiales" o "Exterior" va a "macizas".
+const products: Product[] = [
+  { name: "Eucalipto", detail: "Ranura fina", tag: "Ranura fina", category: "macizas", images: { solo: "eucalipto-ranura-fina.webp", led: "eucalipto-led.webp" } },
+  { name: "Pino", detail: "Impregnado CCA", tag: "CCA", category: "macizas", images: { solo: "pino-impregnado-cca.webp" } },
+  { name: "Freijó", detail: "Veta natural", tag: "Madera", category: "enchapados", images: { solo: "freijo.webp" } },
+  { name: "Guatambú", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { solo: "guatambu.webp", led: "guatambu-cobertor-led.webp" } },
+  { name: "Guayubira", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { led: "guayubira-led.webp" } },
+  { name: "Paraíso", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { led: "paraiso-led.webp" } },
+  { name: "Pino", detail: "Base negra", tag: "Base negra", category: "particulados", images: { solo: "pino-base-negra.webp", led: "pino-base-negra-led.webp" } },
+  { name: "Pino", detail: "Finger", tag: "Finger", category: "particulados", images: { solo: "pino-finger.webp" } },
+];
 
-    const left = product.getBoundingClientRect().left - trackLeft + track.scrollLeft;
-    const distance = Math.abs(left - targetLeft);
-    if (distance < closestDistance) {
-      closestIndex = index;
-      closestDistance = distance;
-    }
-  });
+function ProductCard({ product }: { product: Product }) {
+  const [variant, setVariant] = useState<Variant>(product.images.solo ? "solo" : "led");
 
-  return closestIndex;
+  return (
+    <article className="group min-w-0 shrink-0 basis-[82%] snap-start sm:basis-[46%] lg:basis-[calc(25%_-_18px)]">
+      <div className="relative aspect-[0.88] overflow-hidden rounded-2xl bg-[#f2eee8]">
+        {variants.map(({ id, label }) => {
+          const image = product.images[id];
+          if (!image) return null;
+          const active = id === variant;
+          return (
+            <Image
+              key={id}
+              src={`/images/catalog/${image}`}
+              alt={active ? `${product.name}, revestimiento alistonado ${product.detail.toLowerCase()}, ${label.toLowerCase()}` : ""}
+              fill
+              sizes="(max-width: 640px) 82vw, (max-width: 1024px) 46vw, 22vw"
+              className={`object-cover transition-[opacity,transform] duration-500 group-hover:scale-[1.04] motion-reduce:transition-none ${active ? "opacity-100" : "opacity-0"}`}
+            />
+          );
+        })}
+        <span className="absolute left-3 top-3 rounded-full border border-white/70 bg-white/90 px-2.5 py-1.5 text-[10px] font-semibold tracking-wide text-stone-700 shadow-sm backdrop-blur-sm sm:left-4 sm:top-4 sm:px-3 sm:text-xs">
+          {product.tag}
+        </span>
+      </div>
+      <div className="flex items-start justify-between gap-3 px-1 pt-3 sm:px-2 sm:pt-4">
+        <div className="min-w-0">
+          <h4 className="truncate text-sm font-semibold text-stone-900 sm:text-base">{product.name}</h4>
+          <p className="mt-1 truncate text-xs text-stone-500 sm:text-sm">{product.detail}</p>
+        </div>
+        <div className="flex shrink-0 rounded-full bg-stone-100 p-0.5" role="group" aria-label={`Variante de ${product.name} ${product.detail}`}>
+          {variants.map(({ id, label }) => {
+            const available = Boolean(product.images[id]);
+            const active = id === variant;
+            return (
+              <button
+                key={id}
+                type="button"
+                onClick={() => setVariant(id)}
+                disabled={!available}
+                aria-pressed={active}
+                title={available ? undefined : "Próximamente"}
+                className={`rounded-full px-2.5 py-1.5 text-[11px] font-semibold transition disabled:cursor-not-allowed disabled:opacity-40 sm:text-xs ${
+                  active ? (id === "led" ? "bg-[#c71e2c] text-white shadow-sm" : "bg-white text-stone-900 shadow-sm") : "text-stone-500 enabled:hover:text-stone-900"
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </article>
+  );
 }
 
-export default function ProductGallery() {
+const arrowClass =
+  "flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 text-lg text-stone-700 transition hover:border-[#c71e2c] hover:text-[#c71e2c] disabled:pointer-events-none disabled:opacity-35";
+
+function CategoryCarousel({ id, title, items }: { id: Category; title: string; items: Product[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const currentIndexRef = useRef(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(false);
+  const headingId = `categoria-${id}`;
 
-  const scrollToProduct = useCallback((requestedIndex: number) => {
+  const syncArrows = useCallback(() => {
     const track = trackRef.current;
     if (!track) return;
-
-    const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
-    let nextIndex: number;
-    let left: number;
-
-    if (requestedIndex < 0) {
-      left = maxScroll;
-      nextIndex = closestProductIndex(track, left);
-    } else {
-      const candidateIndex = requestedIndex % products.length;
-      const product = track.children.item(candidateIndex);
-      if (!(product instanceof HTMLElement)) return;
-
-      const candidateLeft = product.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft;
-      if (candidateLeft > maxScroll + 1 && requestedIndex > currentIndexRef.current) {
-        nextIndex = 0;
-        left = 0;
-      } else if (candidateLeft > maxScroll + 1) {
-        left = maxScroll;
-        nextIndex = closestProductIndex(track, left);
-      } else {
-        nextIndex = candidateIndex;
-        left = candidateLeft;
-      }
-    }
-
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    track.scrollTo({ left, behavior: reducedMotion ? "auto" : "smooth" });
-    currentIndexRef.current = nextIndex;
-    setCurrentIndex(nextIndex);
-  }, []);
-
-  const syncCurrentProduct = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const closestIndex = closestProductIndex(track, track.scrollLeft);
-    currentIndexRef.current = closestIndex;
-    setCurrentIndex((current) => current === closestIndex ? current : closestIndex);
+    setCanPrev(track.scrollLeft > 1);
+    setCanNext(track.scrollLeft + track.clientWidth < track.scrollWidth - 1);
   }, []);
 
   useEffect(() => {
-    if (!isPlaying || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    syncArrows();
+    window.addEventListener("resize", syncArrows);
+    return () => window.removeEventListener("resize", syncArrows);
+  }, [syncArrows]);
 
-    const interval = window.setInterval(() => {
-      scrollToProduct(currentIndexRef.current + 1);
-    }, 3600);
+  function move(direction: -1 | 1) {
+    const track = trackRef.current;
+    const card = track?.firstElementChild;
+    if (!track || !(card instanceof HTMLElement)) return;
 
-    return () => window.clearInterval(interval);
-  }, [isPlaying, scrollToProduct]);
-
-  function handleManualMove(index: number) {
-    setIsPlaying(false);
-    scrollToProduct(index);
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    track.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: reducedMotion ? "auto" : "smooth" });
   }
 
+  return (
+    <div className="mt-12 first:mt-8 sm:mt-16">
+      <div className="flex items-end justify-between gap-4">
+        <h3 id={headingId} className="text-xl font-semibold tracking-tight text-stone-900 sm:text-2xl">
+          {title}
+        </h3>
+        <div className="hidden items-center gap-2 md:flex">
+          <button type="button" onClick={() => move(-1)} disabled={!canPrev} aria-label={`${title}: anterior`} className={arrowClass}>
+            <span aria-hidden="true">←</span>
+          </button>
+          <button type="button" onClick={() => move(1)} disabled={!canNext} aria-label={`${title}: siguiente`} className={arrowClass}>
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div
+        ref={trackRef}
+        onScroll={syncArrows}
+        className="product-carousel-track mt-5 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 sm:gap-5 lg:gap-6"
+        role="region"
+        aria-labelledby={headingId}
+        aria-roledescription="carrusel"
+      >
+        {items.map((product) => (
+          <ProductCard key={`${product.name}-${product.detail}`} product={product} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function ProductGallery() {
   return (
     <section id="productos" className="slat-pattern-bg scroll-mt-24 bg-white px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-7xl">
@@ -119,68 +175,11 @@ export default function ProductGallery() {
           </p>
         </div>
 
-        <div
-          ref={trackRef}
-          onScroll={syncCurrentProduct}
-          className="product-carousel-track mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-3 sm:gap-5 lg:gap-6"
-          role="region"
-          aria-label="Colección de revestimientos Listone"
-          aria-roledescription="carrusel"
-        >
-          {products.map((product) => (
-            <article key={product.image} className="group min-w-0 shrink-0 basis-[82%] snap-start sm:basis-[46%] lg:basis-[calc(25%_-_18px)]">
-              <div className="relative aspect-[0.88] overflow-hidden rounded-2xl bg-[#f2eee8]">
-                <Image
-                  src={`/images/catalog/${product.image}`}
-                  alt={`${product.name}, revestimiento alistonado ${product.detail.toLowerCase()}`}
-                  fill
-                  sizes="(max-width: 640px) 46vw, (max-width: 1024px) 30vw, 22vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
-                />
-                <span className="absolute left-3 top-3 rounded-full border border-white/70 bg-white/90 px-2.5 py-1.5 text-[10px] font-semibold tracking-wide text-stone-700 shadow-sm backdrop-blur-sm sm:left-4 sm:top-4 sm:px-3 sm:text-xs">
-                  {product.tag}
-                </span>
-              </div>
-              <div className="px-1 pt-3 sm:px-2 sm:pt-4">
-                <h3 className="truncate text-sm font-semibold text-stone-900 sm:text-base">{product.name}</h3>
-                <p className="mt-1 truncate text-xs text-stone-500 sm:text-sm">{product.detail}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-          <p className="text-sm tabular-nums text-stone-500" aria-label={`Producto ${currentIndex + 1} de ${products.length}`}>
-            {String(currentIndex + 1).padStart(2, "0")} <span className="px-1 text-stone-300">/</span> {String(products.length).padStart(2, "0")}
-          </p>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => handleManualMove(currentIndex - 1)}
-              aria-label="Producto anterior"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 text-lg text-stone-700 transition hover:border-[#c71e2c] hover:text-[#c71e2c]"
-            >
-              <span aria-hidden="true">←</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsPlaying((playing) => !playing)}
-              aria-label={isPlaying ? "Pausar carrusel" : "Reanudar carrusel"}
-              aria-pressed={!isPlaying}
-              className="h-11 rounded-full border border-stone-300 px-4 text-xs font-semibold text-stone-700 transition hover:border-[#c71e2c] hover:text-[#c71e2c]"
-            >
-              {isPlaying ? "Pausar" : "Reanudar"}
-            </button>
-            <button
-              type="button"
-              onClick={() => handleManualMove(currentIndex + 1)}
-              aria-label="Producto siguiente"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 text-lg text-stone-700 transition hover:border-[#c71e2c] hover:text-[#c71e2c]"
-            >
-              <span aria-hidden="true">→</span>
-            </button>
-          </div>
-        </div>
+        {categories.map((category) => {
+          const items = products.filter((product) => product.category === category.id);
+          if (items.length === 0) return null;
+          return <CategoryCarousel key={category.id} id={category.id} title={category.title} items={items} />;
+        })}
       </div>
     </section>
   );

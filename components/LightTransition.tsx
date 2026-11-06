@@ -40,32 +40,42 @@ export default function LightTransition() {
         />
       </div>
 
-      <div className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <p className="text-sm text-stone-600">Elegí el estado de la luz</p>
-        <div className="flex w-full rounded-full bg-stone-100 p-1 sm:w-auto" role="group" aria-label="Elegir iluminación">
-          <button
-            type="button"
-            onClick={() => {
-              setHasSelectedState(true);
-              setIsOn(false);
-            }}
-            aria-pressed={!isOn}
-            className={`flex-1 rounded-full px-5 py-2.5 text-sm font-semibold transition sm:flex-none ${!isOn ? "bg-white text-stone-900 shadow-sm" : "text-stone-500 hover:text-stone-900"}`}
-          >
-            Apagada
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setHasSelectedState(true);
-              setIsOn(true);
-            }}
-            aria-pressed={isOn}
-            className={`flex-1 rounded-full px-5 py-2.5 text-sm font-semibold transition sm:flex-none ${isOn ? "bg-[#c71e2c] text-white shadow-sm" : "text-stone-500 hover:text-stone-900"}`}
-          >
-            Encendida
-          </button>
+      <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-6">
+        <div>
+          <p className="text-sm text-stone-600">Girá la perilla</p>
+          <p className="mt-0.5 text-sm font-semibold text-stone-900" aria-live="polite">
+            {isOn ? "Luz encendida" : "Luz apagada"}
+          </p>
         </div>
+
+        {/* Dimmer: placa clara + perilla negra que rota entre apagado (-130°) y encendido (130°). */}
+        <button
+          type="button"
+          role="switch"
+          aria-checked={isOn}
+          aria-label="Iluminación"
+          onClick={() => {
+            setHasSelectedState(true);
+            setIsOn((current) => !current);
+          }}
+          className={`group relative flex h-[4.25rem] w-[4.25rem] shrink-0 items-center justify-center rounded-full bg-stone-100 ring-1 ring-stone-200 transition-shadow duration-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c71e2c] motion-reduce:transition-none ${isOn ? "shadow-[0_0_28px_4px_rgba(255,190,110,0.55)]" : "shadow-none"}`}
+        >
+          {/* Pulso de invitación: solo hasta que el usuario toca la perilla por primera vez. */}
+          {!hasSelectedState && (
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 animate-ping rounded-full ring-2 ring-[#c71e2c]/60 [animation-duration:1.8s] motion-reduce:hidden"
+            />
+          )}
+          <span
+            aria-hidden="true"
+            className={`relative h-12 w-12 rounded-full bg-[radial-gradient(circle_at_35%_30%,#3a3633,#0d0c0b_70%)] shadow-[0_6px_14px_-4px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.18)] transition-transform duration-700 ease-[cubic-bezier(0.34,1.4,0.64,1)] group-active:scale-95 motion-reduce:transition-none ${isOn ? "rotate-[130deg]" : "-rotate-[130deg]"}`}
+          >
+            <span
+              className={`absolute left-1/2 top-1.5 h-3 w-1 -translate-x-1/2 rounded-full transition-colors duration-700 motion-reduce:transition-none ${isOn ? "bg-[#ffbe6e]" : "bg-white/70"}`}
+            />
+          </span>
+        </button>
       </div>
     </div>
   );
