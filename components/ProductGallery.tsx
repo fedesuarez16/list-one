@@ -39,8 +39,9 @@ const products: Product[] = [
   { name: "Paraíso", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { led: "paraiso-led.webp" } },
   { name: "Itaúba", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { solo: "itauba.webp" } },
   { name: "Roble americano", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { solo: "roble-americano.webp", led: "roble-americano-led.webp" } },
-  { name: "Pino", detail: "Base negra", tag: "Base negra", category: "particulados", images: { solo: "pino-base-negra.webp", led: "pino-base-negra-led.webp" } },
+  { name: "Pino", detail: "Base negra", tag: "Base negra", category: "macizas", images: { solo: "pino-base-negra.webp", led: "pino-base-negra-led.webp" } },
   { name: "Pino", detail: "Finger", tag: "Finger", category: "particulados", images: { solo: "pino-finger.webp" } },
+  { name: "MDF", detail: "Sin pintar", tag: "MDF", category: "particulados", images: { solo: "mdf-sin-pintar.webp" } },
 ];
 
 function ProductCard({ product }: { product: Product }) {
