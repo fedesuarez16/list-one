@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ProductGallery from "@/components/ProductGallery";
+import ProductLightImage from "@/components/ProductLightImage";
 import { faqs, siteDescription, siteName, siteUrl } from "@/lib/site";
 
 const details = [
@@ -126,19 +127,7 @@ export default function Home() {
 
         <section id="producto" className="scroll-mt-24 bg-[#211d1a] px-5 py-20 text-white sm:px-8 sm:py-28">
           <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-            <div className="relative order-2 aspect-[4/5] overflow-hidden rounded-[1.5rem] lg:order-1">
-              <Image
-                src="/images/product_tradicional_detail.jpg"
-                alt="Detalle del ritmo y la textura vertical del revestimiento alistonado"
-                fill
-                sizes="(max-width: 1024px) 100vw, 45vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-              <span className="absolute bottom-5 left-5 rounded-full border border-white/25 bg-black/25 px-4 py-2 text-xs font-medium tracking-wide text-white backdrop-blur-sm">
-                El detalle hace la diferencia
-              </span>
-            </div>
+            <ProductLightImage />
 
             <div className="order-1 lg:order-2">
               <p className="eyebrow text-[#ff665e]">Diseño que se siente</p>
