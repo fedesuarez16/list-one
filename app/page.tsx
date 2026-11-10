@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import ArticlesSection from "@/components/ArticlesSection";
 import ContactSection from "@/components/ContactSection";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import InstallGuide from "@/components/InstallGuide";
 import ProductGallery from "@/components/ProductGallery";
 import ProductLightImage from "@/components/ProductLightImage";
 import { faqs, siteDescription, siteName, siteUrl } from "@/lib/site";
@@ -158,6 +158,8 @@ export default function Home() {
           </div>
         </section>
 
+        <InstallGuide />
+
         <section className="bg-white px-5 py-20 sm:px-8 sm:py-24">
           <div className="mx-auto flex max-w-7xl flex-col gap-8 border-b border-stone-200 pb-10 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -215,7 +217,6 @@ export default function Home() {
           </div>
         </section>
 
-        <ArticlesSection />
         <ContactSection />
         <Faq />
       </main>

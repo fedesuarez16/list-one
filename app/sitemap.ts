@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { articulos } from "@/lib/articulos";
 import { siteUrl } from "@/lib/site";
 import { usos } from "@/lib/usos";
 
@@ -22,13 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
       images: [`${siteUrl}${uso.image}`],
-    })),
-    ...articulos.map((articulo) => ({
-      url: `${siteUrl}/articulos/${articulo.slug}`,
-      lastModified: new Date(articulo.published),
-      changeFrequency: "yearly" as const,
-      priority: 0.6,
-      images: [`${siteUrl}${articulo.image}`],
     })),
   ];
 }

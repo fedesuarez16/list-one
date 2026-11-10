@@ -6,6 +6,16 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  // La guía de instalación estuvo publicada como artículo; ahora es una sección de la home.
+  async redirects() {
+    return [
+      {
+        source: "/articulos/guia-instalacion-revestimiento-alistonado",
+        destination: "/#instalacion",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
