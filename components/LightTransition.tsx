@@ -48,7 +48,7 @@ export default function LightTransition() {
           </p>
         </div>
 
-        {/* Dimmer: placa clara + perilla negra que rota entre apagado (-130°) y encendido (130°). */}
+        {/* Interruptor: foto del control; apagado = desaturado, encendido = color pleno + halo cálido. */}
         <button
           type="button"
           role="switch"
@@ -58,7 +58,7 @@ export default function LightTransition() {
             setHasSelectedState(true);
             setIsOn((current) => !current);
           }}
-          className={`group relative flex h-[4.25rem] w-[4.25rem] shrink-0 items-center justify-center rounded-full bg-stone-100 ring-1 ring-stone-200 transition-shadow duration-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c71e2c] motion-reduce:transition-none ${isOn ? "shadow-[0_0_28px_4px_rgba(255,190,110,0.55)]" : "shadow-none"}`}
+          className={`group relative flex h-[4.25rem] w-[4.25rem] shrink-0 items-center justify-center rounded-full transition-shadow duration-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c71e2c] motion-reduce:transition-none ${isOn ? "shadow-[0_0_28px_4px_rgba(255,190,110,0.55)]" : "shadow-none"}`}
         >
           {/* Pulso de invitación: solo hasta que el usuario toca la perilla por primera vez. */}
           {!hasSelectedState && (
@@ -67,12 +67,17 @@ export default function LightTransition() {
               className="pointer-events-none absolute inset-0 animate-ping rounded-full ring-2 ring-[#c71e2c]/60 [animation-duration:1.8s] motion-reduce:hidden"
             />
           )}
+          {/* interruptor.webp: recorte circular con fondo transparente del PNG original. */}
           <span
             aria-hidden="true"
-            className={`relative h-12 w-12 rounded-full bg-[radial-gradient(circle_at_35%_30%,#3a3633,#0d0c0b_70%)] shadow-[0_6px_14px_-4px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.18)] transition-transform duration-700 ease-[cubic-bezier(0.34,1.4,0.64,1)] group-active:scale-95 motion-reduce:transition-none ${isOn ? "rotate-[130deg]" : "-rotate-[130deg]"}`}
+            className="relative h-full w-full overflow-hidden rounded-full shadow-[0_8px_18px_-6px_rgba(0,0,0,0.55)] transition-transform duration-300 group-active:scale-90 motion-reduce:transition-none"
           >
-            <span
-              className={`absolute left-1/2 top-1.5 h-3 w-1 -translate-x-1/2 rounded-full transition-colors duration-700 motion-reduce:transition-none ${isOn ? "bg-[#ffbe6e]" : "bg-white/70"}`}
+            <Image
+              src="/images/interruptor.webp"
+              alt=""
+              fill
+              sizes="68px"
+              className={`object-cover transition-[filter] duration-700 motion-reduce:transition-none ${isOn ? "saturate-100 brightness-100" : "saturate-0 brightness-90"}`}
             />
           </span>
         </button>
