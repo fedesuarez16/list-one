@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ArticlesSection from "@/components/ArticlesSection";
 import ContactSection from "@/components/ContactSection";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
@@ -214,6 +215,7 @@ export default function Home() {
           </div>
         </section>
 
+        <ArticlesSection />
         <ContactSection />
         <Faq />
       </main>

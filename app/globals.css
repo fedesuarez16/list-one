@@ -31,6 +31,8 @@ body {
   outline-offset: 3px;
 }
 
+/* En @layer components para que las utilidades de Tailwind (ej. text-white) puedan pisarlas. */
+@layer components {
 .eyebrow {
   color: #c71e2c;
   font-size: 0.7rem;
@@ -85,6 +87,7 @@ body {
 .button-secondary:hover {
   border-color: #c71e2c;
   color: #a91622;
+}
 }
 
 .product-carousel-track {
