@@ -37,6 +37,7 @@ const products: Product[] = [
   { name: "Guatambú", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { solo: "guatambu.webp", led: "guatambu-cobertor-led.webp" } },
   { name: "Guayubira", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { led: "guayubira-led.webp" } },
   { name: "Paraíso", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { led: "paraiso-led.webp" } },
+  { name: "Itaúba", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { solo: "itauba.webp" } },
   { name: "Pino", detail: "Base negra", tag: "Base negra", category: "particulados", images: { solo: "pino-base-negra.webp", led: "pino-base-negra-led.webp" } },
   { name: "Pino", detail: "Finger", tag: "Finger", category: "particulados", images: { solo: "pino-finger.webp" } },
 ];
