@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/articulos/guia-instalacion-revestimiento-alistonado",
-        destination: "/#instalacion",
+        destination: "/instalacion",
         permanent: true,
       },
     ];

@@ -128,7 +128,7 @@ export default async function ProductPage({ params }: PageProps<"/productos/[slu
                   <a href="#contacto" className="button-primary inline-flex">
                     Consultar por {product.name} <span aria-hidden="true">↗</span>
                   </a>
-                  <Link href="/#instalacion" className="button-secondary inline-flex">Cómo se instala</Link>
+                  <Link href="/instalacion" className="button-secondary inline-flex">Cómo se instala</Link>
                 </div>
               </div>
             </div>

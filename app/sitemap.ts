@@ -16,6 +16,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         `${siteUrl}/images/usecases/living.webp`,
       ],
     },
+    {
+      url: `${siteUrl}/instalacion`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     ...usos.map((uso) => ({
       url: `${siteUrl}/revestimiento-alistonado/${uso.slug}`,
       lastModified: new Date(),
