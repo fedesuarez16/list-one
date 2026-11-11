@@ -1,81 +1,119 @@
+export type PasoIcon =
+  | "medir"
+  | "planificar"
+  | "preparar"
+  | "cortar"
+  | "probar"
+  | "adhesivo"
+  | "colocar"
+  | "secar"
+  | "terminar";
+
 export type Paso = {
+  icon: PasoIcon;
   title: string;
-  paragraphs: string[];
+  /** Una línea: lo que se ve sin expandir. */
+  resumen: string;
+  /** Texto completo, oculto detrás de "Ver detalle". */
+  detalle: string[];
   bullets?: string[];
   closing?: string;
 };
 
-export const instalacionIntro =
-  "Siga estos pasos para lograr una instalación limpia, equilibrada y con un aspecto profesional.";
+export const instalacionIntro = "Nueve pasos para una instalación limpia, pareja y con terminación profesional.";
+
+export const datosClave = [
+  { value: "11 cm × 2,74 m", label: "Medida de cada tabla" },
+  { value: "+10 %", label: "Extra para cortes y sobrantes" },
+  { value: "Hasta 10 m", label: "De la fuente LED al revestimiento" },
+];
+
+export const herramientas = ["Metro", "Nivel o láser", "Sierra de dientes finos", "Adhesivo de construcción"];
 
 export const pasosInstalacion: Paso[] = [
   {
-    title: "Mide el área de la pared",
-    paragraphs: [
-      "Mide el ancho y la altura de la pared, o de cada sección individual que quieras cubrir. Si la pared incluye ventanas, armarios fijos, falsos techos o tomas de corriente, tenlos en cuenta antes de cortar los paneles.",
-      "Utilice una calculadora para estimar la cantidad de tablas necesarias, sabiendo que cada tabla cubre 0,11 m (11 cm) de ancho x 2,74 m de largo: divide el largo de la pared por 0,11 m. Calcule aproximadamente un 10 % adicional para cortes, recortes y sobrantes.",
-      "En caso de aplicar iluminación LED, prevea el espacio donde alojar la fuente de alimentación y el controlador LED, los cuales pueden estar hasta a 10 metros de distancia del revestimiento a iluminar.",
+    icon: "medir",
+    title: "Medí la pared",
+    resumen: "Calculá cuántas tablas necesitás y sumá un 10 % para cortes.",
+    detalle: [
+      "Medí el ancho y la altura de la pared, o de cada sección que quieras cubrir. Tené en cuenta ventanas, muebles fijos, cielorrasos y tomas de corriente antes de cortar.",
+      "Cada tabla cubre 0,11 m de ancho × 2,74 m de largo: dividí el ancho de la pared por 0,11 m y sumá un 10 % para cortes, recortes y sobrantes.",
+      "Si vas a sumar LED, reservá un lugar para la fuente de alimentación y el controlador: pueden estar hasta a 10 m del revestimiento.",
     ],
   },
   {
-    title: "Planifica el diseño",
-    paragraphs: [
-      "Antes de aplicar el adhesivo, planifique cómo se extenderán las tablas a lo largo de la pared. Esto es especialmente importante para paredes decorativas, donde se busca un aspecto equilibrado en ambos extremos.",
-      "Comience con una línea de referencia recta y evite, en lo posible, cortes de tablas muy estrechos en un borde. Coloque primero las tablas en seco para comprobar la disposición final y la alineación del perfil.",
-      "Para obtener un acabado impecable, utilice un nivel o una línea láser para marcar el punto de partida.",
+    icon: "planificar",
+    title: "Planificá el diseño",
+    resumen: "Marcá la línea de partida con nivel o láser.",
+    detalle: [
+      "Antes de pegar, definí cómo se van a distribuir las tablas a lo largo de la pared. Es clave en paredes decorativas, donde buscás que los dos extremos queden equilibrados.",
+      "Arrancá desde una línea de referencia recta y evitá que te quede una tabla muy angosta en un borde. Para un acabado impecable, marcá el punto de partida con un nivel o una línea láser.",
     ],
   },
   {
-    title: "Prepare la superficie de la pared",
-    paragraphs: [
-      "Asegúrese de que la pared esté limpia, seca, libre de polvo y sin pintura suelta, grasa o residuos.",
-      "Si la pared tiene textura, protuberancias o irregularidades, alíselas primero en la medida de lo posible; si es muy irregular, evalúe una corrección con alfajías. Una superficie más lisa ayudará a que las tablas se asienten correctamente y se adhieran de manera más uniforme.",
+    icon: "preparar",
+    title: "Prepará la superficie",
+    resumen: "Pared limpia, seca, sin polvo y lo más lisa posible.",
+    detalle: [
+      "Asegurate de que la pared esté limpia, seca y sin polvo, pintura suelta, grasa ni residuos.",
+      "Si tiene textura, protuberancias o irregularidades, alisala primero; si es muy despareja, evaluá corregirla con alfajías. Cuanto más lisa la superficie, mejor se asientan y adhieren las tablas.",
     ],
   },
   {
-    title: "Cortar las tablas a medida",
-    paragraphs: [
-      "Las tablas se pueden cortar a la medida de las dimensiones de su pared y se ajustan a los bordes, esquinas, carpintería y accesorios. Entre las herramientas adecuadas se incluyen una sierra circular, una sierra de calar o una sierra de mano de dientes finos.",
-      "Mida con precisión antes de cada corte, corte despacio y con firmeza, y sujete bien la tabla durante el proceso. Un corte cuidadoso ayudará a conseguir un borde más limpio y a minimizar el astillado.",
+    icon: "cortar",
+    title: "Cortá a medida",
+    resumen: "Sierra circular, de calar o serrucho de dientes finos.",
+    detalle: [
+      "Las tablas se cortan a la medida de tu pared y se ajustan a bordes, esquinas, aberturas y accesorios. Podés usar sierra circular, sierra de calar o serrucho de dientes finos.",
+      "Medí con precisión antes de cada corte, cortá despacio y con firmeza, y sujetá bien la tabla. Un corte cuidadoso deja un borde más limpio y evita el astillado.",
     ],
   },
   {
-    title: "Prueba de ajuste antes de la instalación",
-    paragraphs: [
-      "Antes de aplicar el adhesivo, presente las tablas en su posición para comprobar el ajuste, el espaciado, la alineación y el equilibrio visual final. Este paso ayuda a evitar errores y facilita mucho la instalación final.",
+    icon: "probar",
+    title: "Probá en seco",
+    resumen: "Presentá las tablas sin adhesivo para chequear el ajuste.",
+    detalle: [
+      "Antes de aplicar el adhesivo, presentá las tablas en su posición para comprobar el ajuste, el espaciado, la alineación y el equilibrio visual final. Este paso evita errores y facilita mucho la instalación.",
     ],
   },
   {
-    title: "Aplicar adhesivo",
-    paragraphs: [
-      "Aplique un adhesivo de construcción adecuado en la parte posterior de la tabla, siguiendo las instrucciones del fabricante del adhesivo.",
-      "El adhesivo se aplica normalmente en cordones o líneas a lo largo de la parte posterior del panel, con una cobertura suficiente para garantizar una unión fuerte en toda la superficie. No aplique más adhesivo del que pueda manejar antes de que comience a formarse una capa superficial.",
+    icon: "adhesivo",
+    title: "Aplicá el adhesivo",
+    resumen: "Cordones de adhesivo de construcción en el dorso.",
+    detalle: [
+      "Usá un adhesivo de construcción adecuado y aplicalo en el dorso de la tabla, siguiendo las instrucciones del fabricante.",
+      "Normalmente se aplica en cordones a lo largo de la tabla, con cobertura suficiente para una unión firme. No apliques más adhesivo del que puedas manejar antes de que empiece a formar piel.",
     ],
   },
   {
-    title: "Instalar los paneles",
-    paragraphs: [
-      "Presione firmemente la tabla contra la pared en la posición prevista. Continúe tabla por tabla, asegurándose de que cada una quede perfectamente alineada con la anterior.",
+    icon: "colocar",
+    title: "Colocá las tablas",
+    resumen: "Presioná cada tabla, alineada con la anterior.",
+    detalle: [
+      "Presioná firmemente la tabla contra la pared en la posición prevista y seguí tabla por tabla, cuidando que cada una quede alineada con la anterior.",
     ],
     bullets: [
-      "Comprueba que cada tabla esté bien colocada.",
-      "Mantener una alineación de perfil coherente.",
-      "Retire cualquier exceso de adhesivo.",
-      "Continúa a lo largo de la pared hasta completar.",
+      "Comprobá que cada tabla quede bien asentada.",
+      "Mantené la alineación del perfil.",
+      "Retirá el excedente de adhesivo.",
+      "Seguí a lo largo de la pared hasta completarla.",
     ],
-    closing:
-      "Si es necesario, se puede utilizar un soporte temporal para mantener las tablas en su lugar mientras el adhesivo se fija.",
+    closing: "Si hace falta, usá un soporte temporal para sostener las tablas mientras fragua el adhesivo.",
   },
   {
-    title: "Deje que el adhesivo se seque",
-    paragraphs: [
-      "Una vez instalado, deje que el adhesivo se seque completamente según el tiempo recomendado por el fabricante. Evite pintar, sellar o ejercer presión innecesaria sobre los paneles hasta que el adhesivo se haya secado correctamente.",
+    icon: "secar",
+    title: "Dejá secar",
+    resumen: "Respetá el tiempo de secado que indica el fabricante.",
+    detalle: [
+      "Una vez instalado, dejá que el adhesivo seque por completo según el tiempo que indique el fabricante. Hasta entonces, evitá pintar, sellar o hacer presión sobre las tablas.",
     ],
   },
   {
-    title: "Finalizando el revestimiento",
-    paragraphs: [
-      "El paso final depende del tipo de acabado que hayas elegido. Pruebe siempre el acabado seleccionado en una pequeña sección o recorte antes de aplicarlo en toda la instalación.",
+    icon: "terminar",
+    title: "Dale la terminación",
+    resumen: "Probá el acabado en un recorte antes de aplicarlo.",
+    detalle: [
+      "El paso final depende del acabado que elijas. Probalo siempre en una sección chica o en un recorte antes de aplicarlo en toda la instalación.",
     ],
   },
 ];
