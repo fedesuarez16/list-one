@@ -39,6 +39,7 @@ export const products: Product[] = [
   { slug: "pino-finger", name: "Pino", detail: "Finger", tag: "Finger", category: "macizas", images: { solo: "pino-finger.webp" } },
   { slug: "mdf-sin-pintar", name: "MDF", detail: "Sin pintar", tag: "MDF", category: "particulados", images: { solo: "mdf-sin-pintar.webp" } },
   { slug: "mdf-pintado", name: "MDF", detail: "Pintado", tag: "MDF", category: "particulados", images: { solo: "mdf-pintado.webp" } },
+  { slug: "osb", name: "OSB", detail: "Virutas orientadas", tag: "OSB", category: "particulados", images: { solo: "osb.webp" } },
 ];
 
 export function getProduct(slug: string) {

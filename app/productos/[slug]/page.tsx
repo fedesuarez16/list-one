@@ -107,7 +107,7 @@ export default async function ProductPage({ params }: PageProps<"/productos/[slu
                   {product.name}
                 </h1>
                 <p className="mt-2 text-lg text-stone-500">{product.detail}</p>
-                <p className="mt-6 max-w-lg text-base leading-7 text-stone-600 sm:text-lg sm:leading-8">{describe(product)}</p>
+                <p className="mt-6 max-w-lg text-base leading-7 text-stone-600 sm:text-lg sm:leading-8">{describe(product)} Se instala rápido, oculta los desperfectos de la pared y la protege del desgaste cotidiano.</p>
 
                 <dl className="mt-8 max-w-lg divide-y divide-stone-300/70 border-y border-stone-300/70 text-sm">
                   <div className="flex justify-between gap-4 py-3">

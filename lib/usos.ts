@@ -17,17 +17,17 @@ export const usos: Uso[] = [
     description:
       "Revestimiento alistonado de madera para interior: paredes de living, respaldos de cama, recepciones y oficinas. Listones de eucalipto, guatambú, freijó, guayubira y paraíso.",
     intro:
-      "Los listones de madera en vertical convierten una pared lisa en el punto focal del ambiente. Suman calidez, estilizan la altura y generan un juego de sombras que cambia a lo largo del día.",
+      "Los listones de madera en vertical convierten una pared lisa en el punto focal del ambiente. Suman calidez, estilizan la altura y generan un juego de sombras que cambia a lo largo del día. Además, la madera es un aislante natural: ayuda a acondicionar el ambiente ante el frío y el calor.",
     image: "/images/usecases/living.webp",
     imageAlt: "Living con pared de revestimiento alistonado de madera",
     points: [
       {
         title: "Pared protagonista en el living",
-        description: "Una sola pared revestida alcanza para ordenar el espacio y darle carácter sin recargar.",
+        description: "Una sola pared revestida alcanza para diferenciar espacios y darle carácter sin recargar.",
       },
       {
         title: "Respaldo de cama en el dormitorio",
-        description: "El revestimiento alistonado detrás de la cama aporta textura y una sensación más cálida y envolvente.",
+        description: "Funciona como cabecero de cama: aporta textura y una sensación más cálida y envolvente.",
       },
       {
         title: "Recepciones, locales y oficinas",
