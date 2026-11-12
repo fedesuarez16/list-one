@@ -36,7 +36,7 @@ export const products: Product[] = [
   { slug: "itauba", name: "Itaúba", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { solo: "itauba.webp" } },
   { slug: "roble-americano", name: "Roble americano", detail: "Madera natural", tag: "Madera", category: "enchapados", images: { solo: "roble-americano.webp", led: "roble-americano-led.webp" } },
   { slug: "pino-base-negra", name: "Pino", detail: "Base negra", tag: "Base negra", category: "macizas", images: { solo: "pino-base-negra.webp", led: "pino-base-negra-led.webp" } },
-  { slug: "pino-finger", name: "Pino", detail: "Finger", tag: "Finger", category: "particulados", images: { solo: "pino-finger.webp" } },
+  { slug: "pino-finger", name: "Pino", detail: "Finger", tag: "Finger", category: "macizas", images: { solo: "pino-finger.webp" } },
   { slug: "mdf-sin-pintar", name: "MDF", detail: "Sin pintar", tag: "MDF", category: "particulados", images: { solo: "mdf-sin-pintar.webp" } },
   { slug: "mdf-pintado", name: "MDF", detail: "Pintado", tag: "MDF", category: "particulados", images: { solo: "mdf-pintado.webp" } },
 ];

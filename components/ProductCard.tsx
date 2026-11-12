@@ -24,9 +24,6 @@ export default function ProductCard({ product, className = "", headingLevel: Hea
           sizes="(max-width: 640px) 82vw, (max-width: 1024px) 46vw, 22vw"
           zoomOnHover
         />
-        <span className="absolute left-3 top-3 rounded-full border border-white/70 bg-white/90 px-2.5 py-1.5 text-[10px] font-semibold tracking-wide text-stone-700 shadow-sm backdrop-blur-sm sm:left-4 sm:top-4 sm:px-3 sm:text-xs">
-          {product.tag}
-        </span>
       </div>
       <div className="flex items-start justify-between gap-3 px-1 pt-3 sm:px-2 sm:pt-4">
         <div className="min-w-0">
