@@ -31,11 +31,13 @@ type LightSwitchProps = {
   isOn: boolean;
   hasInteracted: boolean;
   onToggle: () => void;
+  /** Versión más llamativa: un poco más grande, aro blanco y pulso más marcado. */
+  highlight?: boolean;
   className?: string;
 };
 
 /** Interruptor: foto del control; apagado = desaturado, encendido = color pleno + halo cálido. */
-export default function LightSwitch({ isOn, hasInteracted, onToggle, className = "" }: LightSwitchProps) {
+export default function LightSwitch({ isOn, hasInteracted, onToggle, highlight = false, className = "" }: LightSwitchProps) {
   return (
     <button
       type="button"
@@ -43,13 +45,13 @@ export default function LightSwitch({ isOn, hasInteracted, onToggle, className =
       aria-checked={isOn}
       aria-label="Iluminación"
       onClick={onToggle}
-      className={`group relative flex h-[4.25rem] w-[4.25rem] shrink-0 items-center justify-center rounded-full transition-shadow duration-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c71e2c] motion-reduce:transition-none ${isOn ? "shadow-[0_0_28px_4px_rgba(255,190,110,0.55)]" : "shadow-none"} ${className}`}
+      className={`group relative flex ${highlight ? "h-20 w-20 ring-4 ring-white/90" : "h-[4.25rem] w-[4.25rem]"} shrink-0 items-center justify-center rounded-full transition-shadow duration-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c71e2c] motion-reduce:transition-none ${isOn ? "shadow-[0_0_28px_4px_rgba(255,190,110,0.55)]" : "shadow-none"} ${className}`}
     >
       {/* Pulso de invitación: solo hasta que el usuario toca el interruptor por primera vez. */}
       {!hasInteracted && (
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 animate-ping rounded-full ring-2 ring-[#c71e2c]/60 [animation-duration:1.8s] motion-reduce:hidden"
+          className={`pointer-events-none absolute inset-0 animate-ping rounded-full [animation-duration:1.8s] motion-reduce:hidden ${highlight ? "ring-4 ring-[#c71e2c]/80" : "ring-2 ring-[#c71e2c]/60"}`}
         />
       )}
       {/* interruptor.webp: recorte circular con fondo transparente del PNG original. */}
@@ -61,7 +63,7 @@ export default function LightSwitch({ isOn, hasInteracted, onToggle, className =
           src="/images/interruptor.webp"
           alt=""
           fill
-          sizes="68px"
+          sizes={highlight ? "80px" : "68px"}
           className={`object-cover transition-[filter] duration-700 motion-reduce:transition-none ${isOn ? "saturate-100 brightness-100" : "saturate-0 brightness-90"}`}
         />
       </span>

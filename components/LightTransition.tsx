@@ -28,7 +28,7 @@ export default function LightTransition() {
 
       <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <div>
-          <p className="text-sm text-stone-600">Girá la perilla</p>
+          <p className="text-sm text-stone-600">Presioná el botón</p>
           <p className="mt-0.5 text-sm font-semibold text-stone-900" aria-live="polite">
             {isOn ? "Luz encendida" : "Luz apagada"}
           </p>

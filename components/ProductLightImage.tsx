@@ -28,7 +28,7 @@ export default function ProductLightImage() {
         El detalle hace la diferencia
       </span>
       <div className="absolute bottom-4 right-4">
-        <LightSwitch isOn={isOn} hasInteracted={hasInteracted} onToggle={toggle} />
+        <LightSwitch isOn={isOn} hasInteracted={hasInteracted} onToggle={toggle} highlight />
       </div>
     </div>
   );
