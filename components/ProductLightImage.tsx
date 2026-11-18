@@ -27,8 +27,8 @@ export default function ProductLightImage() {
       <span className="absolute bottom-5 left-5 rounded-full border border-white/25 bg-black/25 px-4 py-2 text-xs font-medium tracking-wide text-white backdrop-blur-sm">
         El detalle hace la diferencia
       </span>
-      <div className="absolute bottom-5 right-5">
-        <LightSwitch isOn={isOn} hasInteracted={hasInteracted} onToggle={toggle} size="lg" />
+      <div className="absolute bottom-4 right-4">
+        <LightSwitch isOn={isOn} hasInteracted={hasInteracted} onToggle={toggle} />
       </div>
     </div>
   );
