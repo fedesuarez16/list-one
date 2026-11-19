@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       images: [
         `${siteUrl}/images/listone-prendido.webp`,
         `${siteUrl}/images/product_tradicional_detail.jpg`,
-        `${siteUrl}/images/usecases/living.webp`,
+        `${siteUrl}/images/usecases/living-tv.webp`,
       ],
     },
     {

@@ -78,7 +78,7 @@ const jsonLd = {
       image: [
         `${siteUrl}/images/listone-prendido.webp`,
         `${siteUrl}/images/product_tradicional_detail.jpg`,
-        `${siteUrl}/images/usecases/living.webp`,
+        `${siteUrl}/images/usecases/living-tv.webp`,
       ],
     },
     {
@@ -103,13 +103,13 @@ const useCases = [
   {
     title: "Dormitorio",
     description: "Una propuesta cálida para sumar textura al ambiente.",
-    image: "/images/usecases/dorm.webp",
+    image: "/images/usecases/dormitorio-led.webp",
     alt: "Dormitorio con revestimiento alistonado e iluminación cálida",
   },
   {
     title: "Living",
     description: "Una pared protagonista en un ambiente integrado.",
-    image: "/images/usecases/living.webp",
+    image: "/images/usecases/living-tv.webp",
     alt: "Living amplio con pared revestida en listones de madera",
   },
 ];
