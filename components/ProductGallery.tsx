@@ -5,10 +5,22 @@ import ProductCard from "@/components/ProductCard";
 import { type Category, type Product, categories, products } from "@/lib/productos";
 
 const arrowClass =
-  "flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 text-lg text-stone-700 transition hover:border-[#c71e2c] hover:text-[#c71e2c] disabled:pointer-events-none disabled:opacity-35";
+  "flex h-12 w-12 items-center justify-center rounded-full bg-stone-900 text-white shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition hover:scale-105 hover:bg-[#c71e2c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c71e2c] active:scale-95 disabled:pointer-events-none disabled:bg-stone-200 disabled:text-stone-400 disabled:shadow-none motion-reduce:transition-none";
 
-function CategoryCarousel({ id, title, items }: { id: Category; title: string; items: Product[] }) {
+/** Intervalo de autoplay por posición del carrusel (ms). */
+const AUTOPLAY_MS = [3000, 2000, 4000];
+
+function Chevron({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+      <path d={direction === "left" ? "M15 18l-6-6 6-6" : "M9 6l6 6-6 6"} />
+    </svg>
+  );
+}
+
+function CategoryCarousel({ id, title, items, autoplayMs }: { id: Category; title: string; items: Product[]; autoplayMs?: number }) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
   const headingId = `categoria-${id}`;
@@ -26,7 +38,7 @@ function CategoryCarousel({ id, title, items }: { id: Category; title: string; i
     return () => window.removeEventListener("resize", syncArrows);
   }, [syncArrows]);
 
-  function move(direction: -1 | 1) {
+  const move = useCallback((direction: -1 | 1) => {
     const track = trackRef.current;
     const card = track?.firstElementChild;
     if (!track || !(card instanceof HTMLElement)) return;
@@ -34,20 +46,51 @@ function CategoryCarousel({ id, title, items }: { id: Category; title: string; i
     const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     track.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: reducedMotion ? "auto" : "smooth" });
-  }
+  }, []);
+
+  // Autoplay: avanza una tarjeta por intervalo y vuelve al inicio al llegar al final.
+  // Se pausa con hover/foco/touch y en pestaña oculta; no corre con reduced motion.
+  useEffect(() => {
+    if (!autoplayMs) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const interval = window.setInterval(() => {
+      const track = trackRef.current;
+      if (!track || pausedRef.current || document.hidden) return;
+      const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+      if (atEnd) track.scrollTo({ left: 0, behavior: "smooth" });
+      else move(1);
+    }, autoplayMs);
+    return () => window.clearInterval(interval);
+  }, [autoplayMs, move]);
+
+  const pause = () => {
+    pausedRef.current = true;
+  };
+  const resume = () => {
+    pausedRef.current = false;
+  };
 
   return (
-    <div className="mt-12 first:mt-8 sm:mt-16">
+    <div
+      className="mt-12 first:mt-8 sm:mt-16"
+      onPointerEnter={pause}
+      onPointerLeave={resume}
+      onFocus={pause}
+      onBlur={resume}
+      onTouchStart={pause}
+      onTouchEnd={resume}
+    >
       <div className="flex items-end justify-between gap-4">
         <h3 id={headingId} className="text-xl font-semibold tracking-tight text-stone-900 sm:text-2xl">
           {title}
         </h3>
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="flex shrink-0 items-center gap-2.5">
           <button type="button" onClick={() => move(-1)} disabled={!canPrev} aria-label={`${title}: anterior`} className={arrowClass}>
-            <span aria-hidden="true">←</span>
+            <Chevron direction="left" />
           </button>
           <button type="button" onClick={() => move(1)} disabled={!canNext} aria-label={`${title}: siguiente`} className={arrowClass}>
-            <span aria-hidden="true">→</span>
+            <Chevron direction="right" />
           </button>
         </div>
       </div>
@@ -82,10 +125,10 @@ export default function ProductGallery() {
           </p>
         </div>
 
-        {categories.map((category) => {
+        {categories.map((category, index) => {
           const items = products.filter((product) => product.category === category.id);
           if (items.length === 0) return null;
-          return <CategoryCarousel key={category.id} id={category.id} title={category.title} items={items} />;
+          return <CategoryCarousel key={category.id} id={category.id} title={category.title} items={items} autoplayMs={AUTOPLAY_MS[index]} />;
         })}
       </div>
     </section>

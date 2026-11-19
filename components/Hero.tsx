@@ -19,7 +19,7 @@ export default function Hero() {
             <a href="#productos" className="button-primary">
               Explorar productos <span aria-hidden="true">↓</span>
             </a>
-            <a href="#luz" className="button-secondary">
+            <a href="#producto" className="button-secondary">
               Ver el efecto de la luz
             </a>
           </div>
