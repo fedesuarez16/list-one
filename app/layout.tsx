@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { siteDescription, siteName, siteUrl } from "@/lib/site";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import "./globals.css";
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         {children}
         <WhatsAppButton />
+        <Analytics />
       </body>
     </html>
   );
